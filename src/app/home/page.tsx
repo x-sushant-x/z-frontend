@@ -79,7 +79,7 @@ export default function HomePage() {
     }
 
     const listenSocketUpdates = () => {
-        const socket = new WebSocket('ws://z-backend-production.up.railway.app/ws')
+        const socket = new WebSocket('wss://z-backend-production.up.railway.app/ws')
 
         socket.onmessage = (event) => {
             const updatedTask: Task = JSON.parse(event.data)
