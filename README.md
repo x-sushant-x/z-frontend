@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## TaskFlow 
 
-## Getting Started
+#### Live Demo
 
-First, run the development server:
+- **Frontend (Vercel):** [https://z-frontend-kappa.vercel.app/signup](https://z-frontend-kappa.vercel.app/signup)
+- **Backend (Render/Fly.io):** [z-backend-production.up.railway.app](z-backend-production.up.railway.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Backend
+- Golang + Fiber
+- JWT Authentication (HTTP-only cookies)
+- MySQL + GORM
+- WebSockets for real-time task sync
+- Docker + Docker Compose
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Frontend
+- Next.js (App Router)
+- Tailwind CSS (shadcn-inspired)
+- react-hot-toast for UX feedback
+- WebSocket client for live updates
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Deployment
 
-## Deploy on Vercel
+- **Frontend:** Deployed on Vercel
+- **Backend:** Deployed on Fly.io or Render
+- **MySQL:** Docker container
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### AI Tools Used
+
+- **ChatGPT**: code scaffolding, refactoring, and feature guidance
+- **GitHub Copilot**: UI components and TypeScript typing
+- **OpenAI API**: Used in `/api/task/ai-chat` to generate task suggestions
+
