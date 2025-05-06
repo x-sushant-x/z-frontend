@@ -1,7 +1,7 @@
 import { ApiError, ApiSuccess } from "./DTO/response"
 import { CreateTaskPayload, GetTasksResponse, UpdateTaskStatusPayload } from "./DTO/task"
 
-const TASK_BASE_URL = 'http://localhost:4000/api/task'
+const TASK_BASE_URL = 'https://z-backend-production.up.railway.app/api/task'
 
 export async function createTask(payload: CreateTaskPayload): Promise<ApiSuccess<null>> {
     const response = await fetch(`${TASK_BASE_URL}`, {

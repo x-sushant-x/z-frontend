@@ -1,6 +1,6 @@
 import { User } from "./DTO/user";
 
-const BASE_URL = 'http://localhost:4000/api/user'
+const BASE_URL = 'https://z-backend-production.up.railway.app/api/user'
 
 
 export interface GetUsersResponse {

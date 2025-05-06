@@ -1,6 +1,6 @@
 import { ApiSuccess, ApiError } from "./DTO/response"
 
-const BASE_URL = 'http://localhost:4000/api/auth'
+const BASE_URL = 'https://z-backend-production.up.railway.app/api/auth'
 
 
 export type SignupPayload = {
