@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
-    const token = request.cookies.get('jwt_token')?.value
+    const token = request.cookies.get('token')?.value
     const pathName = request.nextUrl.pathname
 
     console.log('Middleware running on:', pathName, 'Token exists?', !!token)

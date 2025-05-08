@@ -1,13 +1,14 @@
 import { ApiError, ApiSuccess } from "./DTO/response"
 import { CreateTaskPayload, GetTasksResponse, UpdateTaskStatusPayload } from "./DTO/task"
 
-const TASK_BASE_URL = 'https://z-backend-production.up.railway.app/api/task'
+const TASK_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT
 
 export async function createTask(payload: CreateTaskPayload): Promise<ApiSuccess<null>> {
-    const response = await fetch(`${TASK_BASE_URL}`, {
+    const response = await fetch(`${TASK_BASE_URL}/api/task`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        credentials: 'include'
     })
 
     const data = await response.json()
@@ -21,9 +22,10 @@ export async function createTask(payload: CreateTaskPayload): Promise<ApiSuccess
 }
 
 export async function getAllTasks(): Promise<GetTasksResponse> {
-    const response = await fetch(`${TASK_BASE_URL}/list`, {
+    const response = await fetch(`${TASK_BASE_URL}/api/task/list`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
     })
 
     const data = await response.json()
@@ -38,12 +40,13 @@ export async function getAllTasks(): Promise<GetTasksResponse> {
 
 
 export async function updateTaskStatus(payload: UpdateTaskStatusPayload): Promise<ApiSuccess<null>> {
-    const response = await fetch(`${TASK_BASE_URL}/status`, {
+    const response = await fetch(`${TASK_BASE_URL}/api/task/status`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
+        credentials: 'include'
     });
 
     const data = await response.json()

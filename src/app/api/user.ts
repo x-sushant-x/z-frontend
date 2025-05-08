@@ -1,6 +1,6 @@
 import { User } from "./DTO/user";
 
-const BASE_URL = 'https://z-backend-production.up.railway.app/api/user'
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT
 
 
 export interface GetUsersResponse {
@@ -8,7 +8,7 @@ export interface GetUsersResponse {
 }
 
 export async function getAllUsers(): Promise<GetUsersResponse> {
-    const response = await fetch(`${BASE_URL}/list`, {
+    const response = await fetch(`${BASE_URL}/api/user/list`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import { ApiSuccess, ApiError } from "./DTO/response"
 
-const BASE_URL = 'https://z-backend-production.up.railway.app/api/auth'
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT
 
 
 export type SignupPayload = {
@@ -15,12 +15,11 @@ export type LoginPayload = {
 }
 
 export type AuthResponse = {
-    message: string
     token?: string
 }
 
 export async function signup(payload: SignupPayload): Promise<ApiSuccess<AuthResponse>> {
-    const response = await fetch(`${BASE_URL}/signup`, {
+    const response = await fetch(`${BASE_URL}/api/auth/signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +38,7 @@ export async function signup(payload: SignupPayload): Promise<ApiSuccess<AuthRes
 }
 
 export async function login(payload: LoginPayload): Promise<ApiSuccess<AuthResponse>> {
-    const response = await fetch(`${BASE_URL}/login`, {
+    const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -55,5 +54,6 @@ export async function login(payload: LoginPayload): Promise<ApiSuccess<AuthRespo
         throw new Error(error.error ?? 'Login failed')
     }
 
-    return data
+
+    return data as ApiSuccess<AuthResponse>
 }

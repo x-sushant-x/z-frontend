@@ -11,9 +11,10 @@ export default function LoginPage() {
   const router = useRouter()
   
   const handleLogin = async (data: { email: string; password: string }) => {
+    const loadingToast = toast.loading("Logging In")
+
     try {
-      const res = await login({ email: data.email, password: data.password })
-      console.log('Login success:', res)
+      await login({ email: data.email, password: data.password })
       
       router.push('/home')
     } catch (err) {
@@ -24,6 +25,8 @@ export default function LoginPage() {
       } else {
         toast.error('An unexpected error occurred.')
       }
+    } finally {
+      toast.dismiss(loadingToast)
     }
   }
 
