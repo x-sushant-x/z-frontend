@@ -43,7 +43,8 @@ export async function login(payload: LoginPayload): Promise<ApiSuccess<AuthRespo
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload)
+        credentials: 'include',
+        body: JSON.stringify(payload),
     })
 
     const data = await response.json()
