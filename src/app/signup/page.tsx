@@ -33,7 +33,7 @@ export default function SignupPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
         <AuthForm type="signup" onSubmit={handleSignup} />
       </div>
     </>

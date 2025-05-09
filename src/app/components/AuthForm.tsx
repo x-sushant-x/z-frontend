@@ -23,7 +23,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-6"
+            className="w-full max-w-md sm:w-[90%] bg-white border border-gray-200 rounded-2xl shadow-sm p-6 space-y-6"
         >
             <div>
                 <h2 className="text-2xl font-semibold text-gray-800 capitalize tracking-tight">

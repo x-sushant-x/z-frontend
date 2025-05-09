@@ -145,53 +145,58 @@ export default function HomePage() {
     return (
         <>
             <Header />
-            <div className="min-h-screen bg-gray-50 p-6">
+            <div className="min-h-screen bg-gray-50 pt-6 px-4">
                 {/* Task creation input and dropdown */}
-                <div className="mb-6 flex justify-center items-center space-x-4">
-                    <input
-                        type="text"
-                        className="px-4 py-2 w-80 text-sm border border-gray-300 rounded-md text-slate-800 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Enter task name"
-                        value={taskName}
-                        onChange={(e) => setTaskName(e.target.value)}
-                    />
-                    <div className="relative">
-                        <button
-                            className="px-4 py-2 text-sm border rounded-md text-slate-600 border-gray-300"
-                            onClick={() => setIsDropdownOpen((prev) => !prev)}
-                        >
-                            {assignedUser?.name || 'Select User'}
-                        </button>
-                        {isDropdownOpen && (
-                            <div className="absolute right-0 mt-2 bg-white shadow-lg border rounded-md w-48 z-10">
-                                {allUsers?.users.map((user) => (
-                                    <div
-                                        key={user.ID}
-                                        className="px-4 py-2 text-sm hover:bg-gray-200 cursor-pointer border-gray-300 text-slate-800"
-                                        onClick={() => {
-                                            setAssignedUser(user)
-                                            setIsDropdownOpen(false)
-                                        }}
-                                    >
-                                        {user.name}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                <div className="mb-6 flex flex-col justify-center md:flex-row md:items-center md:space-x-4">
+                    <div className='flex items-center'>
+                        <input
+                            type="text"
+                            className="px-4 py-2 w-60 text-sm border border-gray-300 rounded-md text-slate-800 focus:border-blue-500 focus:ring-blue-500 md:w-88"
+                            placeholder="Enter task name"
+                            value={taskName}
+                            onChange={(e) => setTaskName(e.target.value)}
+                        />
+                        <div>
+                            <button
+                                className="px-4 py-2 ml-2 text-sm border rounded-md text-slate-600 border-gray-300"
+                                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                            >
+                                {assignedUser?.name || 'User'}
+                            </button>
+                            {isDropdownOpen && (
+                                <div className="absolute mt-2 bg-white shadow-lg border rounded-md z-10">
+                                    {allUsers?.users.map((user) => (
+                                        <div
+                                            key={user.ID}
+                                            className="px-4 py-2 text-sm hover:bg-gray-200 cursor-pointer border-gray-300 text-slate-800"
+                                            onClick={() => {
+                                                setAssignedUser(user)
+                                                setIsDropdownOpen(false)
+                                            }}
+                                        >
+                                            {user.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    <button
-                        className="px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
-                        onClick={handleCreateTask}
-                    >
-                        Create Task
-                    </button>
+
+                    <div className='mt-4 md:mt-0'>
+                        <button
+                            className="px-4 py-2 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                            onClick={handleCreateTask}
+                        >
+                            Create Task
+                        </button>
+                    </div>
                 </div>
 
                 {/* Task List */}
                 <div className="space-y-4 flex flex-col items-center">
                     {allTasks?.tasks.map((task, index) => (
-                        <div key={index} className="p-4 rounded-lg bg-white border-gray-200 border w-[37rem]">
-                            <div className="flex items-center justify-between">
+                        <div key={index} className="p-4 rounded-lg bg-white border-gray-200 border w-full md:w-[34rem]">
+                            <div className="flex items-center justify-between ">
                                 <h3 className="font-medium text-lg text-slate-800">{task.description}</h3>
                                 <div className="flex items-center space-x-2">
                                     <span className="text-sm text-slate-800">{task.user.name}</span>
