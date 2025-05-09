@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import Header from '../components/Header'
-import { getAllUsers, GetUsersResponse } from '../api/user'
+import { getAllUsers } from '../api/user'
 import { createTask, getAllTasks, updateTaskStatus } from '../api/task'
-import { CreateTaskPayload, GetTasksResponse, Task, UpdateTaskStatusPayload } from '../api/DTO/task'
+import { CreateTaskPayload, Task, UpdateTaskStatusPayload } from '../api/DTO/task'
 import { User } from '../api/DTO/user'
 
 const statusOptions: Task['status'][] = ['To Do', 'In Progress', 'Done']
@@ -15,8 +15,8 @@ export default function HomePage() {
     const [assignedUser, setAssignedUser] = useState<User>()
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
     const [openStatusIndex, setOpenStatusIndex] = useState<number | null>(null)
-    const [allUsers, setAllUsers] = useState<GetUsersResponse | null>(null)
-    const [allTasks, setAllTasks] = useState<GetTasksResponse | null>(null)
+    const [allUsers, setAllUsers] = useState<User[] | null>(null)
+    const [allTasks, setAllTasks] = useState<Task[] | null>(null)
 
 
     const handleCreateTask = () => {
@@ -53,8 +53,8 @@ export default function HomePage() {
 
     const fetchUsers = async () => {
         try {
-            const data = await getAllUsers()
-            setAllUsers(data)
+            const users = await getAllUsers()
+            setAllUsers(users.data !== undefined ? users.data : null)
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Failed to fetch users'
             toast.error(errorMessage)
@@ -66,7 +66,7 @@ export default function HomePage() {
             const tasks = await toast.promise(getAllTasks(), {
                 loading: "Loading all tasks",
             })
-            setAllTasks(tasks)
+            setAllTasks(tasks.data !== undefined ? tasks.data : null)
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Failed to fetch tasks'
             toast.error(errorMessage)
@@ -91,20 +91,14 @@ export default function HomePage() {
             const updatedTask: Task = JSON.parse(event.data)
 
             setAllTasks((prev) => {
-                if (!prev) return { tasks: [updatedTask] }
+                if (!prev) return [updatedTask]
 
-                const existingTask = prev.tasks.some(t => t.ID === updatedTask.ID)
+                const existingTask = prev.some(t => t.ID === updatedTask.ID)
 
                 if (existingTask) {
-                    return {
-                        tasks: prev.tasks.map(t =>
-                            t.ID === updatedTask.ID ? updatedTask : t
-                        )
-                    }
+                    return prev.map(t => t.ID === updatedTask.ID ? updatedTask : t)
                 } else {
-                    return {
-                        tasks: [...prev.tasks, updatedTask]
-                    }
+                    return [...prev, updatedTask]
                 }
             })
         }
@@ -165,7 +159,7 @@ export default function HomePage() {
                             </button>
                             {isDropdownOpen && (
                                 <div className="absolute mt-2 bg-white shadow-lg border rounded-md z-10">
-                                    {allUsers?.users.map((user) => (
+                                    {allUsers?.map((user) => (
                                         <div
                                             key={user.ID}
                                             className="px-4 py-2 text-sm hover:bg-gray-200 cursor-pointer border-gray-300 text-slate-800"
@@ -194,7 +188,7 @@ export default function HomePage() {
 
                 {/* Task List */}
                 <div className="space-y-4 flex flex-col items-center">
-                    {allTasks?.tasks.map((task, index) => (
+                    {allTasks?.map((task, index) => (
                         <div key={index} className="p-4 rounded-lg bg-white border-gray-200 border w-full md:w-[34rem]">
                             <div className="flex items-center justify-between ">
                                 <h3 className="font-medium text-lg text-slate-800">{task.description}</h3>

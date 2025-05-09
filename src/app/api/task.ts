@@ -1,5 +1,5 @@
 import { ApiError, ApiSuccess } from "./DTO/response"
-import { CreateTaskPayload, GetTasksResponse, UpdateTaskStatusPayload } from "./DTO/task"
+import { CreateTaskPayload, Task, UpdateTaskStatusPayload } from "./DTO/task"
 
 const TASK_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_ENDPOINT
 
@@ -21,7 +21,7 @@ export async function createTask(payload: CreateTaskPayload): Promise<ApiSuccess
     return data as ApiSuccess<null>
 }
 
-export async function getAllTasks(): Promise<GetTasksResponse> {
+export async function getAllTasks(): Promise<ApiSuccess<Task[]>> {
     const response = await fetch(`${TASK_BASE_URL}/api/task/list`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,7 @@ export async function getAllTasks(): Promise<GetTasksResponse> {
         throw new Error(error.error ?? 'Failed to fetch tasks')
     }
 
-    return data as GetTasksResponse
+    return data as ApiSuccess<Task[]>
 }
 
 

@@ -13,10 +13,6 @@ export interface Task {
     }
 }
 
-export interface GetTasksResponse {
-    tasks: Task[]
-}
-
 export interface CreateTaskPayload {
     description: string
     status: 'To Do' | 'In Progress' | 'Done'
