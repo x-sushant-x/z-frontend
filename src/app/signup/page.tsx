@@ -19,7 +19,10 @@ export default function SignupPage() {
     }
 
     try {
-      await signup({ name: data.name, email: data.email, password: data.password })
+      
+      await toast.promise(signup({ name: data.name, email: data.email, password: data.password }), {
+        loading: 'Creating account'
+      })
       router.push('/login')
     } catch (err) {
       const errorMessage = err instanceof ApiError ? err.message : 'Signup Failed'

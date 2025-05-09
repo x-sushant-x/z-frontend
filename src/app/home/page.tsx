@@ -41,7 +41,9 @@ export default function HomePage() {
                 status: newStatus
             }
 
-            await updateTaskStatus(updatePayload);
+            await toast.promise(updateTaskStatus(updatePayload), {
+                loading: "Changing status"
+            });
             setOpenStatusIndex(null)
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Failed to fetch tasks'
@@ -61,7 +63,9 @@ export default function HomePage() {
 
     const fetchTasks = async () => {
         try {
-            const tasks = await getAllTasks()
+            const tasks = await toast.promise(getAllTasks(), {
+                loading: "Loading all tasks",
+            })
             setAllTasks(tasks)
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Failed to fetch tasks'
@@ -71,7 +75,9 @@ export default function HomePage() {
 
     const createNewTask = async (task: CreateTaskPayload) => {
         try {
-            await createTask(task)
+            await toast.promise(createTask(task), {
+                loading: "Creating new task",
+            })
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Failed to create tasks'
             toast.error(errorMessage)
@@ -89,15 +95,15 @@ export default function HomePage() {
 
                 const existingTask = prev.tasks.some(t => t.ID === updatedTask.ID)
 
-                if(existingTask) {
+                if (existingTask) {
                     return {
-                        tasks : prev.tasks.map(t => 
+                        tasks: prev.tasks.map(t =>
                             t.ID === updatedTask.ID ? updatedTask : t
                         )
                     }
                 } else {
                     return {
-                        tasks : [...prev.tasks, updatedTask]
+                        tasks: [...prev.tasks, updatedTask]
                     }
                 }
             })
@@ -111,10 +117,10 @@ export default function HomePage() {
 
 
     useEffect(() => {
-        fetchUsers()
-        fetchTasks()
-        listenSocketUpdates()
-    }, [])
+        fetchUsers();
+        fetchTasks();
+        listenSocketUpdates();
+    }, []);
 
 
     const renderAvatar = (userName: string) => {
