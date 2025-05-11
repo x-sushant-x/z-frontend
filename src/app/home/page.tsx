@@ -193,8 +193,8 @@ export default function HomePage() {
                             <div className="flex items-center justify-between ">
                                 <h3 className="font-medium text-lg text-slate-800">{task.description}</h3>
                                 <div className="flex items-center space-x-2">
-                                    <span className="text-sm text-slate-800">{task.user.name}</span>
-                                    {renderAvatar(task.user.name)}
+                                    <span className="text-sm text-slate-800">{task.user?.name !== undefined ? task.user.name : "Not Assigned"}</span>
+                                    {task.user?.name !== undefined ? renderAvatar(task.user?.name) : <div></div>}
                                 </div>
                             </div>
                             <div className="mt-2">

@@ -6,7 +6,7 @@ export interface Task {
     description: string
     status: 'To Do' | 'In Progress' | 'Done'
     assignedTo: number
-    user: {
+    user?: {
         ID: number
         name: string
         email: string
